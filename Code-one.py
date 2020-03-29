@@ -1,4 +1,4 @@
-		
+
 import numpy as np
 import pandas as pd
 import math
@@ -113,19 +113,12 @@ for itr in range(max_iterations):
                     swarm_pos[i] = LAHC(swarm_pos[i])   
                     fitness = find_fitness(swarm_pos[i])
 
-                    for k in range(3):
-                        if best_fitness[k]>fitness:
-                            next=k+1
-                            while next<3:
-                                best_fitness[next]=best_fitness[next-1]
-                                best[next]=best[next-1]
-                                next+=1
-                            best_fitness[k]=fitness
-                            best[k]=swarm_pos[i]
-                    
-                    r=random.randrange(0,3)
-                    gbest_fitness=best_fitness[r] #updating global best     
-                    gbest=best[r]
+                    if fitness < gbest_fitness:
+
+                        gbest=swarm_pos[i].copy() #updating global best
+                        gbest_fitness=fitness
+
+
 
                     if fitness < pbest_fitness[i]:
                         pbest[i] = swarm_pos[i].copy() #updating personal best
@@ -139,8 +132,10 @@ for itr in range(max_iterations):
                         swarm_vel[i] = c*math.sin(r2)*(pbest[i]-swarm_pos[i]) +math.sin(r2)* (gbest-swarm_pos[i])
                     else:
                         swarm_vel[i] = c*math.cos(r2)*(pbest[i]-swarm_pos[i]) + math.cos(r2)*(gbest-swarm_pos[i])
+                    
 					#decaying value of c
-					c=alpha*c;
+					c=aplha*c;
+					
 					#applying transfer function and then updating the swarm position
                     t = transfer_func(swarm_vel[i])
                     for j in range(len(swarm_pos[i])):
