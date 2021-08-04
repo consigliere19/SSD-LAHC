@@ -134,7 +134,7 @@ for itr in range(max_iterations):
                         swarm_vel[i] = c*math.cos(r2)*(pbest[i]-swarm_pos[i]) + math.cos(r2)*(gbest-swarm_pos[i])
                     
 					#decaying value of c
-					c=aplha*c;
+					c=alpha*c;
 					
 					#applying transfer function and then updating the swarm position
                     t = transfer_func(swarm_vel[i])
